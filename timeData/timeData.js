@@ -3,7 +3,7 @@ const moment = require('moment')
 class TimeData {
     constructor() {
         this.data = {}
-        this.startTime = '11:01:50'
+        this.startTime = '00:00:00'
         this.isStartCaching = false
     }
     isNeedUpdate(ctx) {
