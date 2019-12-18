@@ -1,16 +1,8 @@
 const TimeData = require('./timeData')
 
-const moment = require('moment')
-const http = require("http");
 const Koa = require('koa')
 const app = new Koa()
 let tm = new TimeData()
-
-setInterval(() => {
-    const data = moment().format('HH:mm:ss')
-    tm.isNeedUpdate(data)
-    console.log('1', data);
-}, 1000);
 
 app.use((ctx, next) => {
     if (ctx.method == "GET" && ctx.url == "/api/data/user") {
@@ -22,8 +14,6 @@ app.use((ctx, next) => {
         ]
         ctx.response = list
     }
-})
-app.use((ctx, next) => {
-    tm.isStartCaching ? getData(ctx) : null
+    tm.isNeedUpdate(ctx)
 })
 app.listen(3004)

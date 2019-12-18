@@ -1,28 +1,32 @@
+const moment = require('moment')
 
 class TimeData {
     constructor() {
         this.data = {}
-        this.startTime = '00:00:00'
+        this.startTime = '11:01:50'
         this.isStartCaching = false
     }
-    isNeedUpdate(date) {
-        if (date == this.startTime) {
-            this.getData()
-            this.isStartCaching = true
-            return true
-        } else {
-            return false
-        }
+    isNeedUpdate(ctx) {
+        setInterval(() => {
+            const data = moment().format('HH:mm:ss')
+            console.log("TCL: TimeData -> isNeedUpdate -> data", data)
+            if (data == this.startTime) {
+                this.setData(ctx)
+                this.isStartCaching = true
+                return true
+            } else {
+                return false
+            }
+        }, 1000);
     }
-    setData(data) {
-        this.data = data
-    }
-    getData(ctx) {
+    setData(ctx) {
         if (ctx.method == "GET" && ctx.url && ctx.url.indexOf("/api/data") > -1) {
-            setData({
-                [this.getKey(ctx.url)]: ctx.response.data
-            })
+            this.data[this.getKey(ctx.url)] = ctx.response.data
+            console.log("TCL: TimeData -> setData -> this.data", this.data)
         }
+    }
+    getData() {
+        return this.data
     }
     getKey(url) {
         //获取最后一个/的位置
