@@ -1,0 +1,14 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    (async () => {
+        // axios.defaults.baseURL = 'http://localhost:3006'
+        axios.defaults.withCredentials = true
+        const res = await axios.get("/api/users", {
+            headers: { 'X-Token': 'xwsasq12x' }
+        })
+        console.log('data', res.data)
+        document.writeln(`Response : ${JSON.stringify(res.data)}`)
+        const img = new Image()
+        img.src = '/api/users?abc=123'
+    })()
+</script>
