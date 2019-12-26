@@ -28,6 +28,21 @@ http.createServer((req, res) => {
     //     })
     //     res.end()
     // }
+    else if (method == 'POST' && url == '/api/save') {
+        let reqData = []
+        let size = 0
+        req.on('data', data => {
+            console.log('req', data);
+            reqData.push(data)
+            size += data.length
+        })
+        req.on('end', function () {
+            console.log('end');
+            const data = Buffer.concat(reqData, size)
+            console.log('data', size, data.toString());
+            res.end(`formdata:${data.toString()}`)
+        })
+    }
     console.log('启动数据提供服务器3006');
 
 }).listen(3006);

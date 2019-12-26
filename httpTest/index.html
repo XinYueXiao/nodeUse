@@ -1,5 +1,6 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
+<!-- 跨域请求 -->
+<!-- <script>
     (async () => {
         // axios.defaults.baseURL = 'http://localhost:3006'
         axios.defaults.withCredentials = true
@@ -11,4 +12,9 @@
         const img = new Image()
         img.src = '/api/users?abc=123'
     })()
-</script>
+</script> -->
+<form action="/api/save" method="post">
+    <input type="text" name="name" value="洗髓丹">
+    <input type="text" name="type" value="解药">
+    <input type="submit" value="save">
+</form>
